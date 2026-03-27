@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N.studio AI - Asistente Virtual para Negocios Peruanos</title>
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            margin: 20px;
+        }
+        
+        /* 头部 */
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .header .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat .number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4ade80;
+        }
+        
+        .stat .label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* 主要内容 */
+        .main-content {
+            display: flex;
+            min-height: 600px;
+        }
+        
+        /* 左侧：聊天演示 */
+        .chat-demo {
+            flex: 2;
+            padding: 30px;
+            background: #f8fafc;
+            border-right: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-header {
+            margin-bottom: 20px;
+        }
+        
+        .chat-header h2 {
+            color: #1e293b;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .chat-header p {
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+        
+        .chat-container {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding-right: 10px;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message.user {
+            background: #3b82f6;
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .message.ai {
+            background: #f1f5f9;
+            color: #334155;
+            margin-right: auto;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .message.system {
+            background: #fef3c7;
+            color: #92400e;
+            margin: 10px auto;
+            max-width: 90%;
+            text-align: center;
+            font-size: 0.9rem;
+            border-radius: 10px;
+        }
+        
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .chat-input:focus {
+            border-color: #3b82f6;
+        }
+        
+        .send-button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 0 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .send-button:hover {
+            background: #2563eb;
+        }
+        
+        .quick-responses {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .quick-response {
+            background: #e2e8f0;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .quick-response:hover {
+            background: #cbd5e1;
+            transform: translateY(-2px);
+        }
+        
+        /* 右侧：功能展示 */
+        .features {
+            flex: 1;
+            padding: 30px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .feature {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 15px;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .feature h3 {
+            color: #1e293b;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .feature p {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #059669;
+            margin-bottom: 15px;
+        }
+        
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(5, 150, 105, 0.3);
+        }
+        
+        .cta-button.secondary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        
+        /* 底部 */
+        .footer {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .footer p {
+            margin-bottom: 10px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="position: fixed; top: 0; left: 0; right: 0; background: white; padding: 15px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; display: flex; justify-content: space-between; align-items: center;">
+        <a href="index.html" style="font-size: 1.2rem; font-weight: bold; color: #4F46E5; text-decoration: none;">N.studio<span style="color: #059669;">AI</span></a>
+        <div style="display: flex; gap: 15px;">
+            <a href="index.html" style="color: #4B5563; text-decoration: none; font-weight: 500;">Inicio</a>
+            <a href="sales-platform.html" style="color: #4B5563; text-decoration: none; font-weight: 500;">Productos</a>
+            <a href="privacy-policy.html" style="color: #4B5563; text-decoration: none; font-weight: 500;">Privacidad</a>
+            <a href="terms-of-service.html" style="color: #4B5563; text-decoration: none; font-weight: 500;">Términos</a>
+        </div>
+    </div>
+    <div style="height: 70px;"></div>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>N.studio AI Asistente Virtual</h1>
+            <div class="subtitle">Automatiza la atención al cliente para negocios peruanos con inteligencia artificial</div>
+            <div class="stats">
+                <div class="stat">
+                    <div class="number">24/7</div>
+                    <div class="label">Disponibilidad</div>
+                </div>
+                <div class="stat">
+                    <div class="number">2-5min</div>
+                    <div class="label">Tiempo de respuesta</div>
+                </div>
+                <div class="stat">
+                    <div class="number">40%+</div>
+                    <div class="label">Más ventas</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 主要内容 -->
+        <div class="main-content">
+            <!-- 左侧：聊天演示 -->
+            <div class="chat-demo">
+                <div class="chat-header">
+                    <h2>Demo Interactivo</h2>
+                    <p>Prueba cómo responde nuestro asistente AI a preguntas comunes de clientes peruanos</p>
+                </div>
+                
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message system">
+                            💬 Hola, soy el asistente AI de N.studio. Puedo responder preguntas sobre precios, inventario, envíos, y más. ¡Prueba preguntarme algo!
+                        </div>
+                        <div class="message ai">
+                            ¡Hola! Soy el asistente virtual de N.studio AI. ¿En qué puedo ayudarte hoy? Puedo responder preguntas sobre:
+                            <br><br>
+                            • 📦 Precios y productos<br>
+                            • 🚚 Envíos y tiempos de entrega<br>
+                            • 📝 Disponibilidad de inventario<br>
+                            • 💳 Métodos de pago<br>
+                            • 🏪 Información de la tienda
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-area">
+                        <input type="text" class="chat-input" id="chatInput" placeholder="Escribe tu pregunta (ej: ¿Cuánto cuesta un sofá?)">
+                        <button class="send-button" id="sendButton">Enviar</button>
+                    </div>
+                    
+                    <div class="quick-responses">
+                        <button class="quick-response" onclick="sendQuickResponse('¿Cuánto cuesta un sofá?')">¿Cuánto cuesta un sofá?</button>
+                        <button class="quick-response" onclick="sendQuickResponse('¿Tienen envío a Lima?')">¿Tienen envío a Lima?</button>
+                        <button class="quick-response" onclick="sendQuickResponse('¿Qué colores tienen disponible?')">¿Qué colores tienen disponible?</button>
+                        <button class="quick-response" onclick="sendQuickResponse('¿Aceptan Mercado Pago?')">¿Aceptan Mercado Pago?</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 右侧：功能展示 -->
+            <div class="features">
+                <div class="feature">
+                    <h3>📦 Respuestas Automáticas 24/7</h3>
+                    <p>Tu negocio responde siempre, incluso a medianoche. Los clientes nunca se van sin respuesta.</p>
+                    <div class="price">$50/mes</div>
+                    <button class="cta-button" onclick="showPaymentModal('basic')">Comenzar Prueba Gratis</button>
+                </div>
+                
+                <div class="feature">
+                    <h3>🚚 Integración con Mercado Pago</h3>
+                    <p>Los clientes pueden pagar directamente desde el chat. Recibe pagos en soles peruanos.</p>
+                    <div class="price">$75/mes</div>
+                    <button class="cta-button secondary" onclick="showPaymentModal('pro')">Ver Demo de Pago</button>
+                </div>
+                
+                <div class="feature">
+                    <h3>📊 Panel de Control para Negocios</h3>
+                    <p>Ve todas las conversaciones, métricas de ventas, y preguntas frecuentes en un solo lugar.</p>
+                    <div class="price">$99/mes</div>
+                    <a href="#contact" class="cta-button">Solicitar Demo Personalizada</a>
+                </div>
+                
+                <div class="feature">
+                    <h3>📱 WhatsApp Business API</h3>
+                    <p>Conecta tu número de WhatsApp para automatizar respuestas y recibir pedidos.</p>
+                    <div class="price">+$25/mes</div>
+                    <button class="cta-button secondary" onclick="showWhatsAppDemo()">Ver Integración WhatsApp</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部 -->
+        <div class="footer" id="contact">
+            <p>© 2025 N.studio AI - Soluciones de Inteligencia Artificial para Negocios Peruanos</p>
+            <p>Especializados en comercio electrónico, retail, y servicios en Perú</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    📧 Email: soporte@nstudioai.com
+                </div>
+                <div class="contact-item">
+                    📱 WhatsApp: +51 XXX XXX XXX
+                </div>
+                <div class="contact-item">
+                    🌐 Sitio web: https://nstudioai.com
+                </div>
+            </div>
+            
+            <p style="margin-top: 20px; font-size: 0.9rem;">
+                Esta demo muestra capacidades reales. Contacta para implementación completa en tu negocio.
+            </p>
+        </div>
+    </div>
+
+    <!-- Modal de pago -->
+    <div id="paymentModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: white; border-radius: 15px; padding: 30px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto;">
+            <h2 style="color: #1e293b; margin-bottom: 20px;">Proceso de Pago Demo</h2>
+            <p style="color: #64748b; margin-bottom: 20px;">Esta es una demostración del flujo de pago con Mercado Pago. En producción, se integraría con la API real.</p>
+            
+            <div style="background: #f8fafc; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h3 style="color: #059669; margin-bottom: 10px;">✅ Pasos del Proceso Real:</h3>
+                <ol style="color: #334155; padding-left: 20px;">
+                    <li>Cliente selecciona producto en el chat</li>
+                    <li>Se genera enlace de pago de Mercado Pago</li>
+                    <li>Cliente paga con tarjeta, Yape, o efectivo</li>
+                    <li>Recibes notificación instantánea</li>
+                    <li>Pedido se procesa automáticamente</li>
+                </ol>
+            </div>
+            
+            <div style="text-align: center;">
+                <button onclick="closePaymentModal()" style="background: #3b82f6; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1rem; cursor: pointer; margin: 10px;">
+                    Cerrar Demo
+                </button>
+                <button onclick="simulatePayment()" style="background: #059669; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1rem; cursor: pointer; margin: 10px;">
+                    Simular Pago Exitoso
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de chat AI
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendButton = document.getElementById('sendButton');
+        
+        // Respuestas basadas en keywords
+        const responses = {
+            // Precios
+            'precio': 'Los precios varían según el producto. Por ejemplo:<br>• Sofá moderno: S/ 1,200 - 2,500<br>• Mesa de centro: S/ 400 - 800<br>• Silla ergonómica: S/ 300 - 600<br><br>¿Te interesa algún producto específico?',
+            'cuesta': 'Los precios varían según el producto. Por ejemplo:<br>• Sofá moderno: S/ 1,200 - 2,500<br>• Mesa de centro: S/ 400 - 800<br>• Silla ergonómica: S/ 300 - 600<br><br>¿Te interesa algún producto específico?',
+            'valor': 'Los precios varían según el producto. Por ejemplo:<br>• Sofá moderno: S/ 1,200 - 2,500<br>• Mesa de centro: S/ 400 - 800<br>• Silla ergonómica: S/ 300 - 600<br><br>¿Te interesa algún producto específico?',
+            'sofá': 'Tenemos varios tipos de sofás:<br>• Sofá moderno de 3 plazas: S/ 1,800<br>• Sofá seccional: S/ 2,500 - 4,000<br>• Sofá cama: S/ 1,500 - 2,200<br><br>¿Te gustaría ver fotos o especificaciones?',
+            'mueble': 'Tenemos muebles para todas las áreas:<br>• Sala: sofás, mesas, estanterías<br>• Dormitorio: camas, cómodas, veladores<br>• Oficina: escritorios, sillas, archivadores<br><br>¿Para qué área buscas muebles?',
+            
+            // Envíos
+            'envío': 'Hacemos envíos a todo Perú:<br>• Lima Metropolitana: 24-48 horas (S/ 15-30)<br>• Provincias: 3-5 días hábiles (S/ 30-80)<br>• Retiro en tienda: Gratis (Miraflores, Lima)<br><br>¿De dónde nos escribes?',
+            'entrega': 'Los tiempos de entrega dependen de tu ubicación:<br>• Lima: 24-48 horas<br>• Arequipa/Trujillo: 3-4 días<br>• Otras ciudades: 5-7 días<br><br>¿Necesitas entrega urgente?',
+            'tiempo': 'Los tiempos de entrega dependen de tu ubicación:<br>• Lima: 24-48 horas<br>• Arequipa/Trujillo: 3-4 días<br>• Otras ciudades: 5-7 días<br><br>¿Necesitas entrega urgente?',
+            'lima': '¡Sí, entregamos en toda Lima!<br>• Zona 1 (Centro, Miraflores, etc.): 24 horas<br>• Zona 2 (Lima Norte/Sur): 48 horas<br>• Costo: S/ 15-25 según distrito<br><br>¿En qué distrito vives?',
+            
+            // Inventario
+            'disponible': 'Verifico disponibilidad en tiempo real. Para productos específicos, puedo revisar nuestro sistema. ¿Qué producto te interesa?',
+            'stock': 'Mantenemos buen stock de nuestros productos más populares. ¿Buscas algo en particular?',
+            'color': 'Los colores disponibles varían por producto. Tenemos:<br>• Neutros: blanco, negro, gris, beige<br>• Modernos: azul marino, verde bosque, terracota<br>• Personalizados: consultar disponibilidad<br><br>¿Qué producto y color buscas?',
+            
+            // Pagos
+            'pago': 'Aceptamos múltiples métodos:<br>• Mercado Pago (tarjetas, Yape, PLIN)<br>• Transferencia bancaria<br>• Efectivo al recibir (solo Lima)<br>• PayPal (para clientes internacionales)<br><br>¿Prefieres algún método en particular?',
+            'mercado pago': '¡Perfecto! Aceptamos Mercado Pago. Puedes pagar con:<br>• Tarjeta de crédito/débito<br>• Yape o PLIN<br>• Efectivo en agentes<br>• Saldo de Mercado Pago<br><br>¿Necesitas ayuda con el pago?',
+            'tarjeta': 'Aceptamos todas las tarjetas principales a través de Mercado Pago: Visa, Mastercard, American Express. ¡El pago es seguro y encriptado!',
+            'yape': 'Sí, puedes pagar con Yape a través de Mercado Pago. Te enviaremos un QR code o número para la transferencia.',
+            
+            // Información general
+            'hola': '¡Hola! ¿En qué puedo ayudarte hoy? Puedo responder preguntas sobre precios, envíos, disponibilidad, y más.',
+            'ayuda': '¡Claro! Estoy aquí para ayudarte. Puedo responder sobre:<br>• Productos y precios<br>• Envíos y entregas<br>• Disponibilidad y colores<br>• Métodos de pago<br>• Información de la tienda<br><br>¿Qué necesitas saber?',
+            'horario': 'Nuestra tienda física está abierta:<br>• Lunes a Viernes: 9am - 7pm<br>• Sábados: 10am - 4pm<br>• Domingos: Cerrado<br><br>Pero este asistente AI está disponible 24/7 😊',
+            
+            // Default
+            'default': 'Gracias por tu pregunta. Nuestro equipo especializado revisará y te responderá pronto. Mientras tanto, ¿puedo ayudarte con información sobre productos, precios, o envíos?'
+        };
+        
+        // Enviar mensaje
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            
+            // Agregar mensaje del usuario
+            addMessage(message, 'user');
+            chatInput.value = '';
+            
+            // Simular procesamiento
+            setTimeout(() => {
+                const response = generateAIResponse(message);
+                addMessage(response, 'ai');
+            }, 1000);
+        }
+        
+        // Respuesta rápida
+        function sendQuickResponse(text) {
+            chatInput.value = text;
+            sendMessage();
+        }
+        
+        // Generar respuesta AI
+        function generateAIResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Buscar keyword match
+            for (const [keyword, response] of Object.entries(responses)) {
+                if (lowerMessage.includes(keyword.toLowerCase())) {
+                    return response;
+                }
+            }
+            
+            // Respuesta por defecto
+            return responses.default;
+        }
+        
+        // Agregar mensaje al chat
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            messageDiv.innerHTML = text;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Modal de pago
+        function showPaymentModal(plan) {
+            document.getElementById('paymentModal').style.display = 'flex';
+        }
+        
+        function closePaymentModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+        
+        function simulatePayment() {
+            addMessage('💰 Simulación: El cliente ha completado un pago de S/ 150 a través de Mercado Pago. ¡Pedido confirmado! Se enviará notificación al negocio.', 'system');
+            closePaymentModal();
+        }
+        
+        function showWhatsAppDemo() {
+            addMessage('📱 Integración WhatsApp: En producción, este chat se conectaría con WhatsApp Business API. Los clientes podrían escribir al +51 XXX XXX XXX y recibir respuestas automáticas.', 'system');
+        }
+        
+        // Event listeners
+        sendButton.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+        
+        // Inicializar con mensaje de bienvenida
+        setTimeout(() => {
+            addMessage('¡Bienvenido a la demo del asistente AI de N.studio! Prueba preguntar sobre precios, envíos, o disponibilidad de productos.', 'ai');
+        }, 1000);
+    </script>
+</body>
+</html>

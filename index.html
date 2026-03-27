@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N.studio AI - Soluciones de Inteligencia Artificial para Perú</title>
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            background: white;
+            padding: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4F46E5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: #059669;
+        }
+        
+        .tagline {
+            font-size: 0.9rem;
+            color: #6B7280;
+            margin-top: 5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-link {
+            color: #4B5563;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+        
+        .nav-link:hover {
+            color: #4F46E5;
+            background: #F3F4F6;
+        }
+        
+        .nav-link.active {
+            color: #4F46E5;
+            font-weight: bold;
+            background: #EEF2FF;
+        }
+        
+        .nav-link.cta {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            color: white;
+        }
+        
+        .nav-link.cta:hover {
+            background: linear-gradient(135deg, #4338CA 0%, #6D28D9 100%);
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            background: white;
+            border-radius: 20px;
+            padding: 80px 60px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4F46E5, #059669, #F59E0B);
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            color: #1F2937;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            color: #6B7280;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4F46E5;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6B7280;
+        }
+        
+        /* 服务网格 */
+        .services {
+            margin-bottom: 60px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .section-header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 25px;
+        }
+        
+        .service-icon.secondary {
+            background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+        }
+        
+        .service-icon.tertiary {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+        }
+        
+        .service-card h3 {
+            font-size: 1.8rem;
+            color: #1F2937;
+            margin-bottom: 15px;
+        }
+        
+        .service-card p {
+            color: #6B7280;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+        }
+        
+        .service-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .service-features li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #4B5563;
+        }
+        
+        .service-features li::before {
+            content: "✓";
+            color: #059669;
+            font-weight: bold;
+        }
+        
+        .service-link {
+            display: inline-block;
+            color: #4F46E5;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 0;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        
+        .service-link:hover {
+            border-bottom: 2px solid #4F46E5;
+        }
+        
+        /* 客户评价 */
+        .testimonials {
+            margin-bottom: 60px;
+        }
+        
+        .testimonial-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            color: #4B5563;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .testimonial-text::before {
+            content: '"';
+            font-size: 3rem;
+            color: #E5E7EB;
+            position: absolute;
+            top: -15px;
+            left: -10px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: #4F46E5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .author-info h4 {
+            color: #1F2937;
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: #6B7280;
+            font-size: 0.9rem;
+        }
+        
+        /* 页脚 */
+        .footer {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin-top: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            color: #1F2937;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-column p {
+            color: #6B7280;
+            margin-bottom: 15px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #6B7280;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-links a:hover {
+            color: #4F46E5;
+        }
+        
+        .copyright {
+            text-align: center;
+            color: #9CA3AF;
+            padding-top: 30px;
+            border-top: 1px solid #E5E7EB;
+            font-size: 0.9rem;
+        }
+        
+        /* 行动号召 */
+        .cta-section {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            color: #1F2937;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            color: #6B7280;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button {
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .cta-button.primary {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            color: white;
+        }
+        
+        .cta-button.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.3);
+        }
+        
+        .cta-button.secondary {
+            background: white;
+            color: #4F46E5;
+            border: 2px solid #4F46E5;
+        }
+        
+        .cta-button.secondary:hover {
+            background: #4F46E5;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero {
+                padding: 40px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-stats {
+                gap: 20px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-section {
+                padding: 40px 20px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    N.studio<span>AI</span>
+                    <div class="tagline">Soluciones de IA para Perú</div>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link active">Inicio</a>
+                    <a href="sales-platform.html" class="nav-link">Productos</a>
+                    <a href="ai-customer-service-demo.html" class="nav-link">Demo AI</a>
+                    <a href="privacy-policy.html" class="nav-link">Privacidad</a>
+                    <a href="terms-of-service.html" class="nav-link">Términos</a>
+                    <a href="sales-platform.html#contact" class="nav-link cta">Contacto</a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- 英雄区域 -->
+        <section class="hero">
+            <div class="hero-badge">🇵🇪 Especialistas en el mercado peruano</div>
+            <h1>Inteligencia Artificial para Negocios Peruanos</h1>
+            <p>Desde Lima hasta Arequipa, ayudamos a emprendedores y empresas a crecer con soluciones de IA personalizadas. Automatización, diseño inteligente y atención al cliente 24/7.</p>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">+40%</div>
+                    <div class="stat-label">Aumento en ventas</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">-60%</div>
+                    <div class="stat-label">Reducción en tiempo de respuesta</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Satisfacción del cliente</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Cumplimiento legal Perú</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 服务网格 -->
+        <section class="services">
+            <div class="section-header">
+                <h2>Nuestros Servicios de IA</h2>
+                <p>Soluciones diseñadas específicamente para las necesidades del mercado peruano</p>
+            </div>
+            
+            <div class="services-grid">
+                <!-- 服务1 -->
+                <div class="service-card">
+                    <div class="service-icon">📚</div>
+                    <h3>Guías Educativas de IA</h3>
+                    <p>Aprende a generar ingresos con herramientas de IA gratuitas y de pago. Guías prácticas para el mercado peruano.</p>
+                    
+                    <ul class="service-features">
+                        <li>Guía completa en español (78 páginas)</li>
+                        <li>3 métodos comprobados para ganar dinero</li>
+                        <li>Casos reales de éxito en Perú</li>
+                        <li>Herramientas gratuitas y recursos</li>
+                        <li>Soporte por email 30 días</li>
+                    </ul>
+                    
+                    <a href="sales-platform.html#products" class="service-link">Ver guía completa →</a>
+                    <br>
+                    <a href="ai-dinero-guia-html.html" class="service-link" style="margin-top: 10px;">Vista previa gratuita →</a>
+                </div>
+                
+                <!-- 服务2 -->
+                <div class="service-card">
+                    <div class="service-icon secondary">🤖</div>
+                    <h3>Asistentes AI para Negocios</h3>
+                    <p>Automatiza la atención al cliente 24/7. No más ventas perdidas por falta de respuesta inmediata.</p>
+                    
+                    <ul class="service-features">
+                        <li>Respuestas automáticas a preguntas frecuentes</li>
+                        <li>Integración con WhatsApp Business</li>
+                        <li>Soporte para precios, stock y envíos</li>
+                        <li>Panel de control para negocios</li>
+                        <li>Configuración en 24 horas</li>
+                    </ul>
+                    
+                    <a href="ai-customer-service-demo.html" class="service-link">Probar demo interactiva →</a>
+                    <br>
+                    <a href="sales-platform.html#products" class="service-link" style="margin-top: 10px;">Ver planes y precios →</a>
+                </div>
+                
+                <!-- 服务3 -->
+                <div class="service-card">
+                    <div class="service-icon tertiary">🎨</div>
+                    <h3>Diseño y Contenido con IA</h3>
+                    <p>Genera imágenes profesionales para redes sociales, marketing y e-commerce con inteligencia artificial.</p>
+                    
+                    <ul class="service-features">
+                        <li>Diseño de interiores y arquitectura</li>
+                        <li>Modelos para e-commerce y moda</li>
+                        <li>Arte estilo anime y recursos para juegos</li>
+                        <li>Retratos de mascotas profesionales</li>
+                        <li>Entrega en 24-48 horas</li>
+                    </ul>
+                    
+                    <a href="sales-platform.html#products" class="service-link">Ver portafolio →</a>
+                    <br>
+                    <a href="#contact" class="service-link" style="margin-top: 10px;">Solicitar cotización →</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 行动号召 -->
+        <section class="cta-section">
+            <h2>¿Listo para transformar tu negocio con IA?</h2>
+            <p>Únete a decenas de negocios peruanos que ya están usando nuestras soluciones de inteligencia artificial para crecer y automatizar sus operaciones.</p>
+            
+            <div class="cta-buttons">
+                <a href="sales-platform.html" class="cta-button primary">Ver Productos y Precios</a>
+                <a href="ai-customer-service-demo.html" class="cta-button secondary">Probar Demo Gratis</a>
+            </div>
+        </section>
+        
+        <!-- 客户评价 -->
+        <section class="testimonials">
+            <div class="section-header">
+                <h2>Lo que dicen nuestros clientes</h2>
+                <p>Negocios peruanos que confían en nuestras soluciones de IA</p>
+            </div>
+            
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Implementamos el asistente AI en nuestra tienda online y en una semana aumentamos las ventas un 35%. Los clientes reciben respuestas inmediatas a cualquier hora."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MC</div>
+                        <div class="author-info">
+                            <h4>María Castillo</h4>
+                            <p>Tienda de moda, Lima</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "La guía de IA me enseñó métodos reales para generar ingresos. En un mes recuperé la inversión 10 veces. Totalmente recomendado para emprendedores peruanos."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JC</div>
+                        <div class="author-info">
+                            <h4>Juan Carlos</h4>
+                            <p>Emprendedor digital, Arequipa</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Contratamos el servicio de diseño con IA para nuestras redes sociales. La calidad es profesional y el proceso muy eficiente. Ahora tenemos contenido constante."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AR</div>
+                        <div class="author-info">
+                            <h4>Ana Rodríguez</h4>
+                            <p>Restaurante, Trujillo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 页脚 -->
+        <footer class="footer" id="contact">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>N.studio AI</h3>
+                    <p>Soluciones de inteligencia artificial diseñadas específicamente para el mercado peruano. Ayudamos a negocios y emprendedores a crecer con IA.</p>
+                    <p>📍 Especialistas en Perú</p>
+                    <p>🕒 Horario: Lunes a Viernes, 9:00-18:00 (GMT-5)</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Servicios</h3>
+                    <ul class="footer-links">
+                        <li><a href="sales-platform.html#products">Guías Educativas de IA</a></li>
+                        <li><a href="sales-platform.html#products">Asistentes AI para Negocios</a></li>
+                        <li><a href="sales-platform.html#products">Diseño y Contenido con IA</a></li>
+                        <li><a href="ai-customer-service-demo.html">Demo Gratis AI</a></li>
+                        <li><a href="ai-dinero-guia-html.html">Vista Previa Guía</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Política de Privacidad</a></li>
+                        <li><a href="terms-of-service.html">Términos de Servicio</a></li>
+                        <li><a href="#">Política de Reembolsos</a></li>
+                        <li><a href="#">Protección de Datos (ARCO)</a></li>
+                        <li><a href="#">Libro de Reclamaciones</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:soporte@nstudioai.com">📧 soporte@nstudioai.com</a></li>
+                        <li><a href="mailto:ventas@nstudioai.com">📧 ventas@nstudioai.com</a></li>
+                        <li><a href="#">📱 WhatsApp: +51 XXX XXX XXX</a></li>
+                        <li><a href="#">📱 Telegram: @nstudioai_bot</a></li>
+                        <li><a href="#">📍 Lima, Perú</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2026 N.studio AI. Todos los derechos reservados.</p>
+                <p style="margin-top: 10px;">Cumplimiento: Ley de Protección de Datos Personales Perú (Ley N° 29733) | Ley del Consumidor (Ley N° 29571)</p>
+                <p style="font-size: 0.8rem; margin-top: 10px; color: #9CA3AF;">
+                    Este sitio web es propiedad de N.studio AI. Los resultados pueden variar según el esfuerzo y circunstancias de cada negocio.
+                </p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // 设置当前年份
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentYear = new Date().getFullYear();
+            const yearElements = document.querySelectorAll('.copyright p');
+            yearElements.forEach(element => {
+                if (element.textContent.includes('2026')) {
+                    element.textContent = element.textContent.replace('2026', currentYear);
+                }
+            });
+            
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // 统计动画
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const originalText = stat.textContent;
+                if (originalText.includes('%') || originalText.includes('+') || originalText.includes('-')) {
+                    const value = parseInt(originalText.replace(/[^\d]/g, ''));
+                    const prefix = originalText.replace(value.toString(), '').replace('%', '');
+                    
+                    let current = 0;
+                    const increment = value / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= value) {
+                            current = value;
+                            clearInterval(timer);
+                        }
+                        stat.textContent = prefix + Math.floor(current) + '%';
+                    }, 30);
+                }
+            });
+        });
+        
+        console.log('🚀 N.studio AI - Sitio web principal cargado');
+        console.log('🇵🇪 Especializado para el mercado peruano');
+        console.log('🔗 Páginas disponibles: index.html, sales-platform.html, privacy-policy.html, terms-of-service.html');
+    </script>
+</body>
+</html>

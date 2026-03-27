@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N.studio AI - Soluciones de IA para Negocios Peruanos</title>
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            background: white;
+            padding: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #4F46E5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo span {
+            color: #059669;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-link {
+            color: #4B5563;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: #4F46E5;
+        }
+        
+        .nav-link.active {
+            color: #4F46E5;
+            font-weight: bold;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            color: #1F2937;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #6B7280;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        /* 产品网格 */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-header {
+            padding: 30px 30px 20px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        
+        .product-badge {
+            display: inline-block;
+            background: #4F46E5;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .product-title {
+            font-size: 1.8rem;
+            color: #1F2937;
+            margin-bottom: 10px;
+        }
+        
+        .product-description {
+            color: #6B7280;
+            font-size: 0.95rem;
+        }
+        
+        .product-content {
+            padding: 30px;
+        }
+        
+        .product-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .product-features li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .product-features li::before {
+            content: "✓";
+            color: #059669;
+            font-weight: bold;
+        }
+        
+        .product-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1F2937;
+            margin-bottom: 20px;
+        }
+        
+        .product-price .currency {
+            font-size: 1.5rem;
+            vertical-align: super;
+        }
+        
+        .product-price .period {
+            font-size: 1rem;
+            color: #6B7280;
+            font-weight: normal;
+        }
+        
+        .buy-button {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+        
+        .buy-button:hover {
+            background: linear-gradient(135deg, #4338CA 0%, #6D28D9 100%);
+            transform: translateY(-2px);
+        }
+        
+        .buy-button.secondary {
+            background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+        }
+        
+        .buy-button.secondary:hover {
+            background: linear-gradient(135deg, #047857 0%, #0D9488 100%);
+        }
+        
+        /* 支付方式 */
+        .payment-methods {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .payment-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #4B5563;
+        }
+        
+        /* 保证区域 */
+        .guarantee {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .guarantee h2 {
+            color: #1F2937;
+            margin-bottom: 20px;
+        }
+        
+        .guarantee-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .guarantee-item {
+            padding: 20px;
+            background: #F9FAFB;
+            border-radius: 15px;
+        }
+        
+        /* 页脚 */
+        .footer {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            color: #1F2937;
+            margin-bottom: 20px;
+        }
+        
+        .footer-column p {
+            color: #6B7280;
+            margin-bottom: 15px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #6B7280;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #4F46E5;
+        }
+        
+        .copyright {
+            text-align: center;
+            color: #9CA3AF;
+            padding-top: 30px;
+            border-top: 1px solid #E5E7EB;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero {
+                padding: 40px 20px;
+            }
+            
+            .nav-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <div class="nav-content">
+                <div class="logo">
+                    N.studio<span>AI</span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Inicio</a>
+                    <a href="#products" class="nav-link active">Productos</a>
+                    <a href="ai-customer-service-demo.html" class="nav-link">Demo AI</a>
+                    <a href="privacy-policy.html" class="nav-link">Privacidad</a>
+                    <a href="terms-of-service.html" class="nav-link">Términos</a>
+                    <a href="#contact" class="nav-link">Contacto</a>
+                </div>
+        </nav>
+        
+        <!-- 英雄区域 -->
+        <section class="hero">
+            <div class="hero-badge">🇵🇪 Especialistas en Perú</div>
+            <h1>Soluciones de IA para Negocios Peruanos</h1>
+            <p>Genera ingresos con IA o automatiza tu negocio. Desde Lima hasta Arequipa, ayudamos a emprendedores y negocios a crecer con inteligencia artificial.</p>
+            <div class="payment-methods">
+                <p style="color: #6B7280; margin-bottom: 10px;">Aceptamos:</p>
+                <div class="payment-icons">
+                    <div class="payment-icon">💳</div>
+                    <div class="payment-icon">💰</div>
+                    <div class="payment-icon">📱</div>
+                </div>
+                <p style="color: #059669; font-size: 0.9rem; margin-top: 10px;">Pagos seguros con Mercado Pago</p>
+            </div>
+        </section>
+        
+        <!-- 产品网格 -->
+        <section id="products" class="products-grid">
+            <!-- 产品1: PDF指南 -->
+            <div class="product-card">
+                <div class="product-header">
+                    <div class="product-badge" style="background: #F59E0B;">🔥 Oferta Limitada</div>
+                    <h2 class="product-title">Guía Completa: Cómo Ganar Dinero con IA</h2>
+                    <p class="product-description">Aprende a generar ingresos desde Perú usando herramientas de IA gratuitas y de pago.</p>
+                </div>
+                <div class="product-content">
+                    <ul class="product-features">
+                        <li>Guía en PDF de 78 páginas (español)</li>
+                        <li>3 métodos comprobados para ganar dinero</li>
+                        <li>Casos reales de éxito en Perú</li>
+                        <li>Lista completa de herramientas gratuitas</li>
+                        <li>Plantillas editables y recursos</li>
+                        <li>Acceso a comunidad privada</li>
+                        <li>Soporte por email 30 días</li>
+                        <li>Actualizaciones gratuitas 2025</li>
+                    </ul>
+                    
+                    <div class="product-price">
+                        <span class="currency">$</span>7.99 <span class="period">USD</span>
+                    </div>
+                    <p style="color: #6B7280; text-align: center; margin-bottom: 20px;">Oferta Perú: S/ 30.00</p>
+                    
+                    <button class="buy-button" onclick="buyProduct('pdf-guide')">
+                        Comprar Guía Completa
+                    </button>
+                    
+                    <p style="text-align: center; color: #6B7280; font-size: 0.9rem; margin-top: 15px;">
+                        <a href="/ai-dinero-guia-html.html" style="color: #4F46E5;">Ver vista previa gratuita →</a>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 产品2: AI客服基础版 -->
+            <div class="product-card">
+                <div class="product-header">
+                    <div class="product-badge" style="background: #3B82F6;">🤖 Más Popular</div>
+                    <h2 class="product-title">Asistente AI para Negocios</h2>
+                    <p class="product-description">Automatiza respuestas a clientes 24/7. No más ventas perdidas por falta de respuesta.</p>
+                </div>
+                <div class="product-content">
+                    <ul class="product-features">
+                        <li>Respuestas automáticas 24/7</li>
+                        <li>Soporte para precios, envíos, stock</li>
+                        <li>Integración con Facebook/Instagram</li>
+                        <li>Panel de control para negocios</li>
+                        <li>Soporte en español (Perú)</li>
+                        <li>Configuración en 1 día</li>
+                        <li>Backup manual diario</li>
+                        <li>Soporte por email</li>
+                    </ul>
+                    
+                    <div class="product-price">
+                        <span class="currency">$</span>50 <span class="period">/mes</span>
+                    </div>
+                    <p style="color: #6B7280; text-align: center; margin-bottom: 20px;">S/ 185 mensual</p>
+                    
+                    <button class="buy-button secondary" onclick="buyProduct('ai-basic')">
+                        Comenzar Prueba Gratis
+                    </button>
+                    
+                    <p style="text-align: center; color: #6B7280; font-size: 0.9rem; margin-top: 15px;">
+                        <a href="/ai-customer-service-demo.html" style="color: #4F46E5;">Probar demo interactiva →</a>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 产品3: AI客服专业版 -->
+            <div class="product-card">
+                <div class="product-header">
+                    <div class="product-badge" style="background: #059669;">⚡ Recomendado</div>
+                    <h2 class="product-title">Asistente AI Profesional</h2>
+                    <p class="product-description">Todo incluido + WhatsApp Business + Mercado Pago integrado. Para negocios en crecimiento.</p>
+                </div>
+                <div class="product-content">
+                    <ul class="product-features">
+                        <li>Todas las funciones Basic</li>
+                        <li>Integración WhatsApp Business API</li>
+                        <li>Pagos con Mercado Pago integrado</li>
+                        <li>Panel de control avanzado</li>
+                        <li>Análisis de conversiones</li>
+                        <li>Respuestas personalizadas por producto</li>
+                        <li>Backup automático en la nube</li>
+                        <li>Soporte prioritario</li>
+                    </ul>
+                    
+                    <div class="product-price">
+                        <span class="currency">$</span>99 <span class="period">/mes</span>
+                    </div>
+                    <p style="color: #6B7280; text-align: center; margin-bottom: 20px;">S/ 365 mensual</p>
+                    
+                    <button class="buy-button" onclick="buyProduct('ai-pro')">
+                        Comenzar Prueba Gratis
+                    </button>
+                    
+                    <p style="text-align: center; color: #6B7280; font-size: 0.9rem; margin-top: 15px;">
+                        <a href="/ai-customer-service-demo.html" style="color: #4F46E5;">Ver demo con pagos →</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 保证区域 -->
+        <section id="guarantee" class="guarantee">
+            <h2>Tu Éxito está Garantizado</h2>
+            <p style="color: #6B7280; max-width: 800px; margin: 0 auto 30px;">
+                Estamos comprometidos con el éxito de negocios peruanos. Por eso ofrecemos las mejores garantías del mercado.
+            </p>
+            
+            <div class="guarantee-grid">
+                <div class="guarantee-item">
+                    <h3 style="color: #059669;">💰 Garantía de Reembolso</h3>
+                    <p>7 días para la guía PDF. Si no te gusta, te devolvemos el 100%.</p>
+                </div>
+                <div class="guarantee-item">
+                    <h3 style="color: #3B82F6;">🔄 Prueba Gratis</h3>
+                    <p>3 días gratis en planes de AI. Cancela cuando quieras sin costo.</p>
+                </div>
+                <div class="guarantee-item">
+                    <h3 style="color: #8B5CF6;">🎯 Resultados Comprobados</h3>
+                    <p>Casos reales de negocios peruanos que aumentaron ventas 40%+.</p>
+                </div>
+                <div class="guarantee-item">
+                    <h3 style="color: #F59E0B;">🇵🇪 Especialistas Perú</h3>
+                    <p>Conocemos el mercado peruano. Soporte en español, horario Perú.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 页脚 -->
+        <footer class="footer" id="contact">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>N.studio AI</h3>
+                    <p>Soluciones de inteligencia artificial para negocios peruanos. Especialistas en automatización, diseño y crecimiento digital.</p>
+                    <p>📍 Desde Lima para todo Perú</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Productos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#products">Guía: Cómo Ganar con IA</a></li>
+                        <li><a href="#products">Asistente AI Basic</a></li>
+                        <li><a href="#products">Asistente AI Pro</a></li>
+                        <li><a href="/ai-customer-service-demo.html">Demo Gratis</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Soporte</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:soporte@nstudioai.com">soporte@nstudioai.com</a></li>
+                        <li><a href="#">WhatsApp: +51 XXX XXX XXX</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Términos de Servicio</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                        <li><a href="#">Política de Reembolsos</a></li>
+                        <li><a href="#">Contacto Comercial</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2025 N.studio AI. Todos los derechos reservados. Hecho con ❤️ en Perú para negocios peruanos.</p>
+                <p style="font-size: 0.9rem; margin-top: 5px;">Los resultados pueden variar según el esfuerzo y circunstancias de cada negocio.</p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- 支付模态框 -->
+    <div id="paymentModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 10000; align-items: center; justify-content: center;">
+        <div style="background: white; border-radius: 20px; padding: 40px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto;">
+            <h2 id="modalTitle" style="color: #1F2937; margin-bottom: 20px;">Completar Compra</h2>
+            <div id="modalContent">
+                <!-- 内容由JavaScript动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 产品配置
+        const products = {
+            'pdf-guide': {
+                name: 'Guía Completa: Cómo Ganar Dinero con IA',
+                price: 7.99,
+                currency: 'USD',
+                pricePen: 30.00,
+                description: 'PDF de 78 páginas con todo lo que necesitas para empezar a ganar dinero con IA desde Perú.',
+                features: [
+                    'Guía completa en español',
+                    '3 métodos comprobados',
+                    'Casos peruanos reales',
+                    'Herramientas gratuitas',
+                    'Soporte 30 días'
+                ]
+            },
+            'ai-basic': {
+                name: 'Asistente AI Basic',
+                price: 50,
+                currency: 'USD',
+                pricePen: 185,
+                period: 'mes',
+                description: 'Automatiza respuestas a clientes 24/7. Prueba gratis 3 días.',
+                features: [
+                    'Respuestas 24/7',
+                    'Soporte Facebook/Instagram',
+                    'Panel de control',
+                    'Configuración 1 día',
+                    'Soporte en español'
+                ]
+            },
+            'ai-pro': {
+                name: 'Asistente AI Professional',
+                price: 99,
+                currency: 'USD',
+                pricePen: 365,
+                period: 'mes',
+                description: 'Todo incluido + WhatsApp + Mercado Pago. Para negocios en crecimiento.',
+                features: [
+                    'WhatsApp Business API',
+                    'Mercado Pago integrado',
+                    'Panel avanzado',
+                    'Análisis de conversiones',
+                    'Soporte prioritario'
+                ]
+            }
+        };
+        
+        // 购买产品
+        function buyProduct(productId) {
+            const product = products[productId];
+            if (!product) return;
+            
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalTitle.textContent = `Comprar: ${product.name}`;
+            
+            let html = `
+                <div style="margin-bottom: 30px;">
+                    <p style="color: #6B7280; margin-bottom: 15px;">${product.description}</p>
+                    
+                    <div style="background: #F9FAFB; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                        <h3 style="color: #059669; margin-bottom: 10px;">✅ Incluye:</h3>
+                        <ul style="color: #334155; padding-left: 20px;">
+                            ${product.features.map(f => `<li>${f}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div style="text-align: center; margin: 20px 0;">
+                        <div style="font-size: 2.5rem; font-weight: bold; color: #1F2937;">
+                            ${product.currency === 'USD' ? '$' : 'S/ '}${product.price}
+                            ${product.period ? `<span style="font-size: 1rem; color: #6B7280;">/${product.period}</span>` : ''}
+                        </div>
+                        ${product.pricePen ? `<p style="color: #6B7280;">Oferta Perú: S/ ${product.pricePen} ${product.period ? 'mensual' : ''}</p>` : ''}
+                    </div>
+                </div>
+            `;
+            
+            if (productId === 'pdf-guide') {
+                html += `
+                    <div style="text-align: center;">
+                        <button onclick="processPayment('${productId}', 'mercado-pago')" style="background: linear-gradient(135deg, #00B4DB 0%, #0083B0 100%); color: white; border: none; padding: 15px 40px; border-radius: 25px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin: 10px; width: 100%;">
+                            Pagar con Mercado Pago
+                        </button>
+                        <button onclick="processPayment('${productId}', 'paypal')" style="background: linear-gradient(135deg, #003087 0%, #009CDE 100%); color: white; border: none; padding: 15px 40px; border-radius: 25px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin: 10px; width: 100%;">
+                            Pagar con PayPal
+                        </button>
+                        <button onclick="closeModal()" style="background: #6B7280; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-size: 1rem; cursor: pointer; margin: 10px;">
+                            Cancelar
+                        </button>
+                    </div>
+                    
+                    <p style="color: #64748b; font-size: 0.9rem; margin-top: 20px; text-align: center;">
+                        Pago 100% seguro | Descarga inmediata | Reembolso 7 días
+                    </p>
+                `;
+            } else {
+                html += `
+                    <div style="background: #E0F2FE; border-left: 4px solid #0EA5E9; padding: 15px; margin: 20px 0; border-radius: 4px;">
+                        <p style="color: #0369A1; margin: 0;">🎁 <strong>Oferta especial:</strong> 3 días gratis, luego ${product.currency === 'USD' ? '$' : 'S/ '}${product.price}/${product.period}. Cancela cuando quieras.</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <button onclick="startFreeTrial('${productId}')" style="background: linear-gradient(135deg, #059669 0%, #10B981 100%); color: white; border: none; padding: 15px 40px; border-radius: 25px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin: 10px; width: 100%;">
+                            Comenzar Prueba Gratis
+                        </button>
+                        <button onclick="closeModal()" style="background: #6B7280; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-size: 1rem; cursor: pointer; margin: 10px;">
+                            Cancelar
+                        </button>
+                    </div>
+                    
+                    <p style="color: #64748b; font-size: 0.9rem; margin-top: 20px; text-align: center;">
+                        Sin tarjeta requerida | Configuración en 24h | Soporte en español
+                    </p>
+                `;
+            }
+            
+            modalContent.innerHTML = html;
+            document.getElementById('paymentModal').style.display = 'flex';
+        }
+        
+        // 处理支付
+        function processPayment(productId, method) {
+            const product = products[productId];
+            const amount = product.currency === 'USD' ? product.price : product.pricePen;
+            const currency = product.currency === 'USD' ? 'USD' : 'PEN';
+            
+            alert(`En producción, esto integraría con ${method === 'mercado-pago' ? 'Mercado Pago' : 'PayPal'} API.\n\nProducto: ${product.name}\nMonto: ${amount} ${currency}\n\nEl cliente sería redirigido a una página de pago segura.`);
+            
+            // 模拟成功支付
+            setTimeout(() => {
+                alert(`✅ Pago exitoso!\n\nGracias por tu compra. Tu ${productId === 'pdf-guide' ? 'PDF está disponible para descarga' : 'prueba gratis ha comenzado'}.\n\nTe contactaremos por email con los detalles.`);
+                closeModal();
+                
+                // 记录销售
+                recordSale(productId, amount, currency, method);
+            }, 1000);
+        }
+        
+        // 开始免费试用
+        function startFreeTrial(productId) {
+            const product = products[productId];
+            
+            alert(`🎉 Prueba gratis iniciada!\n\nProducto: ${product.name}\nDuración: 3 días gratis\n\nTe contactaremos por email para configurar tu asistente AI.`);
+            
+            // 模拟试用开始
+            setTimeout(() => {
+                alert(`📧 Email enviado!\n\nHemos enviado un email a la dirección proporcionada con los detalles de configuración.\n\nNuestro equipo te contactará en las próximas 24 horas para configurar tu asistente AI.`);
+                closeModal();
+                
+                // 记录试用
+                recordTrial(productId);
+            }, 1000);
+        }
+        
+        // 记录销售
+        function recordSale(productId, amount, currency, method) {
+            const sale = {
+                product: productId,
+                amount: amount,
+                currency: currency,
+                method: method,
+                date: new Date().toISOString(),
+                status: 'completed'
+            };
+            
+            console.log('📈 Venta registrada:', sale);
+            // 这里可以发送到后端API
+        }
+        
+        // 记录试用
+        function recordTrial(productId) {
+            const trial = {
+                product: productId,
+                date: new Date().toISOString(),
+                status: 'active',
+                endDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString()
+            };
+            
+            console.log('🎯 Prueba gratis registrada:', trial);
+            // 这里可以发送到后端API
+        }
+        
+        // 关闭模态框
+        function closeModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+        
+        // 关闭模态框点击背景
+        document.getElementById('paymentModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // 初始化
+        console.log('🛒 Plataforma de ventas cargada');
+        console.log('🇵🇪 Especializada para mercado peruano');
+        console.log('💰 Productos disponibles: PDF Guide, AI Basic, AI Pro');
+    </script>
+</body>
+</html>
